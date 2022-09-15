@@ -37,7 +37,8 @@ variable "vsphere" {
 
 # Plan Specific variables
 
-# Variables for Data
+# Variables for Data Sources
+
 variable "nsx_data_vars" {
   type = map
   description = "Existing NSX vars for data sources"
@@ -51,6 +52,7 @@ variable "nsx_data_vars" {
 }
 
 # Variables for resources I am creating
+
 variable "nsx_rs_vars" {
   type = map
   description = "NSX vars for the resources"
@@ -59,16 +61,6 @@ variable "nsx_rs_vars" {
   }
 }
 
-variable "nsx_data_vars" {
-  type = map
-  description = "Existing vSphere vars for data sources"
-  default = {
-    dc            = "DC-SiteA"
-    datastore     = "NFS"
-    resource_pool = "Compute-Cluster/Resources"
-    vm_template   = "t_template_novra"
-  }
-}
 
 variable "vsphere_rs_vars" {
   type = map

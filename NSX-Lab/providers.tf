@@ -1,6 +1,6 @@
 #! providers.tf
 
-Terraform {
+terraform {
   required_providers {
     nsxt = {
       source = "vmware/nsxt"
