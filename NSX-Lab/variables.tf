@@ -87,36 +87,36 @@ variable "app_listen_port" {
   default = "8443"
 }
 
-variable "db_user" {
-    type = string
-    description = "DB Details"
-}
-
-variable "db_pass" {
-    type = string
-    description = "DB Details"
-}
-
-variable "db_name" {
-    type = string
-    description = "DB Details"
-}
+#variable "db_user" {
+#    type = string
+#    description = "DB Details"
+#}
+#
+#variable "db_pass" {
+#    type = string
+#    description = "DB Details"
+#}
+#
+#variable "db_name" {
+#    type = string
+#    description = "DB Details"
+#}
 
 
 # Variables for VM deployment
 
-variable "web" {
-    type = map
-    description = "NSX vars for the resources"
-}
-variable "app" {
-    type = map
-    description = "NSX vars for the resources"
-}
-variable "db" {
-    type = map
-    description = "NSX vars for the resources"
-}
+#variable "web" {
+#    type = map
+#    description = "NSX vars for the resources"
+#}
+#variable "app" {
+#    type = map
+#    description = "NSX vars for the resources"
+#}
+#variable "db" {
+#    type = map
+#    description = "NSX vars for the resources"
+#}
 
 #
 #db_user = "medicalappuser" # Database details
