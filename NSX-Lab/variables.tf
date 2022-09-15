@@ -69,3 +69,89 @@ variable "vsphere_rs_vars" {
     vm = "VM_name"
   }
 }
+variable "dns_server_list" {
+    type = list
+    description = "DNS Servers"
+  default = ["192.168.110.0"]
+}
+
+variable "ip_set" {
+  type = string
+  description = "List of ip addresses that will be add in the IP-SET to allow communication to all VMs"
+  default = "192.168.110.10"
+}
+
+variable "app_listen_port" {
+  type = string
+  description = "TCP Port the App server listens on"
+  default = "8443"
+}
+
+variable "db_user" {
+    type = string
+    description = "DB Details"
+}
+
+variable "db_pass" {
+    type = string
+    description = "DB Details"
+}
+
+variable "db_name" {
+    type = string
+    description = "DB Details"
+}
+
+
+# Variables for VM deployment
+
+variable "web" {
+    type = map
+    description = "NSX vars for the resources"
+}
+variable "app" {
+    type = map
+    description = "NSX vars for the resources"
+}
+variable "db" {
+    type = map
+    description = "NSX vars for the resources"
+}
+
+db_user = "medicalappuser" # Database details
+db_name = "medicalapp"
+db_pass = "VMware1!"
+
+web = {
+    ip = "10.29.15.210"
+    gw = "10.29.15.209"
+    mask = "28"
+    nat_ip = "" # If the ip above is routable and has internet access you can leave the NAT IP blank
+    vm_name = "web"
+    domain = "yasen.local"
+    user = "root" # Credentails to access the VM
+    pass = "VMware1!"
+}
+
+app = {
+    ip = "192.168.245.21" # If this IP is not routable and has no internet access you need to condigure a NAT IP below
+    gw = "192.168.245.1"
+    mask = "24"
+    nat_ip = "10.29.15.229"
+    vm_name = "app"
+    domain = "yasen.local"
+    user = "root"
+    pass = "VMware1!"
+}
+
+db = {
+    ip = "192.168.247.21"
+    gw = "192.168.247.1"
+    mask = "24"
+    nat_ip = "10.29.15.228"
+    vm_name = "db"
+    domain = "yasen.local"
+    user = "root"
+    pass = "VMware1!"
+}
+
