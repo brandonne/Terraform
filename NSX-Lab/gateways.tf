@@ -13,7 +13,7 @@ data "nsxt_policy_edge_cluster" "edge_cluster1" {
 # Create T1 router
 resource "nsxt_policy_tier1_gateway" "tier1_gw" {
   description                 = "Tier1 router provisioned by Terraform"
-  display_name                = "${var.nsx_rs_vars["t1_router_name"]}"
+  display_name                = "${var.nsx_rs_vars["t1_gw_name"]}"
   failover_mode               = "PREEMPTIVE"
   edge_cluster_path            = "${data.nsxt_policy_edge_cluster.edge_cluster1.path}"
   tier0_path                  = data.nsxt_policy_tier0_gateway.tier0_router.path

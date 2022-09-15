@@ -6,9 +6,9 @@ variable "nsx" {
   type = map
   description = "NSX Login Details"
   default = {
-    hostname  = "192.168.110.201"
+    hostname  = "nsxmgr.lab.local"
     user = "admin"
-    password = "Password"
+    password = "password"
   }
 }
 
@@ -29,9 +29,9 @@ variable "vsphere" {
   type        = map
   description = "vSphere Details"
   default     = {
+    hostname = "vcenter.lab.local"
     user     = "administrator@vsphere.local"
     password = "VMware1!"
-    hostname       = "192.168.110.22"
   }
 }
 
