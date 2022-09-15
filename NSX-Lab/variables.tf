@@ -118,6 +118,7 @@ variable "db" {
     description = "NSX vars for the resources"
 }
 
+
 #
 #db_user = "medicalappuser" # Database details
 #db_name = "medicalapp"
