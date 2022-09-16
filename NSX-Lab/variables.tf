@@ -75,27 +75,27 @@ variable "vlans_left_seg" {
 
 # T0 GW Interfaces
 # !!! the IP is included for use in BGP source address, I'd like to find a better way to do that
-# without repeating data.
+# without repeating data. I couldn't get it to accept interface.ipaddresses as it hadn't been created yet.
 variable "t0_edge1_left_name" {default = "edge1-left"}
-variable "to_edge1_left_ip" {default = "192.168.240.11"}
+variable "t0_edge1_left_ip" {default = "192.168.240.11"}
 variable "t0_edge1_left_subnets" {
   type = list
   default = ["192.168.240.11/24"]
 }
 variable "t0_edge1_right_name" {default = "edge1-right"}
-variable "to_edge1_right_ip" {default = "192.168.250.11"}
+variable "t0_edge1_right_ip" {default = "192.168.250.11"}
 variable "t0_edge1_right_subnets" {
   type = list
   default = ["192.168.250.11/24"]
 }
 variable "t0_edge2_left_name" {default = "edge2-left"}
-variable "to_edge2_left_ip" {default = "192.168.240.12"}
+variable "t0_edge2_left_ip" {default = "192.168.240.12"}
 variable "t0_edge2_left_subnets" {
   type = list
   default = ["192.168.240.12/24"]
 }
 variable "t0_edge2_right_name" {default = "edge2-right"}
-variable "to_edge2_right_ip" {default = "192.168.250.12"}
+variable "t0_edge2_right_ip" {default = "192.168.250.12"}
 variable "t0_edge2_right_subnets" {
   type = list
   default = ["192.168.250.12/24"]
