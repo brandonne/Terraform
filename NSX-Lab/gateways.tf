@@ -151,8 +151,8 @@ resource "nsxt_policy_bgp_neighbor" "bgp_neighbor_left" {
   neighbor_address      = "${var.t0_bgp_neighbor_left_ip}"
   remote_as_num         = "${var.t0_bgp_remote_asn}"
   source_addresses      = [
-    nsxt_policy_tier0_gateway_interface.T0_edge1_left,
-    nsxt_policy_tier0_gateway_interface.T0_edge2_left
+    nsxt_policy_tier0_gateway_interface.T0_edge1_left.ip_addresses,
+    nsxt_policy_tier0_gateway_interface.T0_edge2_left.ip_addresses
   ]
 
   bfd_config {
