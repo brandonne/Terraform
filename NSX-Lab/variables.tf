@@ -39,36 +39,76 @@ variable "vsphere" {
 
 # Variables for Data Sources
 
-variable "nsx_data_vars" {
-  type = map
-  description = "Existing NSX vars for data sources"
-  default = {
-      transport_zone  = "nsx-overlay-transportzone"
-      t0_router_name = "T0-GW"
-      edge_cluster = "EdgeCluster"
-      t1_router_name = "tf-T1GW"
-      dhcp_server = "Default"
-  }
+# Transport Zones
+variable "transport_zone"  { default = "nsx-overlay-transportzone"}
+variable "uplink_vlan_tz" {default = "nsx-uplinks-vlan-transportzone"}
+
+# variable t0_router_name      { default = "T0-GW"}
+variable "edge_cluster"      { default = "EdgeCluster"}
+variable "edge_node_1" { default = "edgenode-01a"}
+variable "edge_node_2" { default = "edgenode-02a"}
+
+# variable t1_router_name     { default = "tf-T1GW"}
+variable "dhcp_server"      { default = "Default"}
+
+# Variables for Resources
+
+# T0 and T1 Gateways
+variable "vlan_right_seg" {default = "right_seg"}
+variable "vlan_left_seg" {default = "left_seg"}
+
+variable "t0_gw_name" {default = "Tier0-GW"}
+variable "t1_gw_name" {default = "Tier1-GW"}
+
+variable "vlans_right_seg" {
+  type = list
+  description = "Uplink Right Segment VLANs"
+  default = ["250"]
 }
 
-# Variables for resources I am creating
-
-variable "nsx_rs_vars" {
-  type = map
-  description = "NSX vars for the resources"
-  default = {
-      t1_gw_name = "tf-T1GW"
-  }
+variable "vlans_left_seg" {
+  type = list
+  description = "Uplink Left Segment VLANs"
+  default = ["240"]
+}
+variable "t0_edge1_left_name" {default = "edge1-left"}
+variable "t0_edge1_left_subnets" {
+  type = list
+  default = ["192.168.240.11/24"]
+}
+variable "t0_edge1_right_name" {default = "edge1-right"}
+variable "t0_edge1_right_subnets" {
+  type = list
+  default = ["192.168.250.11/24"]
+}
+variable "t0_int2_name" {default = "edge2-left"}
+variable "t0_int2_subnets" {
+  type = list
+  default = ["192.168.240.12/24"]
+}
+variable "t0_edge2_right_name" {default = "edge2-right"}
+variable "t0_edge2_right_subnets" {
+  type = list
+  default = ["192.168.250.12/24"]
 }
 
+variable "t0_bgp_local_asn" {default ="100"}
+variable "t0_bgp_remote_asn" {default ="200"}
 
-variable "vsphere_rs_vars" {
-  type = map
-  description = "vSphere vars for Resources"
-  default = {
-    vm = "VM_name"
-  }
-}
+variable "t0_bgp_neighbor_left" {default = "BGP Neighbor Left"}
+variable "t0_bgp_neighbor_left_ip" {default = "192.168.240.1"}
+
+variable "t0_bgp_neighbor_right" {default = "BGP Neighbor Right"}
+variable "t0_bgp_neighbor_right_ip" {default = "192.168.240.1"}
+
+#variable "vsphere_rs_vars" {
+#  type = map
+#  description = "vSphere vars for Resources"
+#  default = {
+#    vm = "VM_name"
+#  }
+#}
+
 variable "dns_server_list" {
     type = list
     description = "DNS Servers"
