@@ -54,23 +54,26 @@ variable "dhcp_server"      { default = "Default"}
 # Variables for Resources
 
 # T0 and T1 Gateways
-variable "vlan_right_seg" {default = "right_seg"}
-variable "vlan_left_seg" {default = "left_seg"}
-
+# T0 and T1 Gateway Names
 variable "t0_gw_name" {default = "Tier0-GW"}
 variable "t1_gw_name" {default = "Tier1-GW"}
 
+
+# VLAN Segments for connecting to TOR-Left and TOR-Right
+variable "vlan_right_seg" {default = "right_seg"}
 variable "vlans_right_seg" {
   type = list
   description = "Uplink Right Segment VLANs"
   default = ["250"]
 }
-
+variable "vlan_left_seg" {default = "left_seg"}
 variable "vlans_left_seg" {
   type = list
   description = "Uplink Left Segment VLANs"
   default = ["240"]
 }
+
+# T0 GW Interfaces
 variable "t0_edge1_left_name" {default = "edge1-left"}
 variable "t0_edge1_left_subnets" {
   type = list
@@ -81,8 +84,8 @@ variable "t0_edge1_right_subnets" {
   type = list
   default = ["192.168.250.11/24"]
 }
-variable "t0_int2_name" {default = "edge2-left"}
-variable "t0_int2_subnets" {
+variable "t0_edge2_left_name" {default = "edge2-left"}
+variable "t0_edge2_left_subnets" {
   type = list
   default = ["192.168.240.12/24"]
 }
@@ -92,6 +95,7 @@ variable "t0_edge2_right_subnets" {
   default = ["192.168.250.12/24"]
 }
 
+# T0 BGP Configuration
 variable "t0_bgp_local_asn" {default ="100"}
 variable "t0_bgp_remote_asn" {default ="200"}
 
