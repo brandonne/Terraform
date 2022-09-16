@@ -4,7 +4,7 @@
 
 # Transport Zone used in Segments
 data "nsxt_policy_transport_zone" "overlay_tz" {
-    display_name = "${var.nsx_data_vars["transport_zone"]}"
+    display_name = "${var.transport_zone}"
 }
 
 # DHCP Server used by Segments

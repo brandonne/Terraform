@@ -12,9 +12,11 @@ data "nsxt_policy_edge_cluster" "edge_cluster1" {
 }
 data "nsxt_policy_edge_node" "edge_node_1" {
   display_name = "${var.edge_node_1}"
+  edge_cluster_path = "data.nsxt_policy_edge_cluster.edge_cluster1.path"
 }
 data "nsxt_policy_edge_node" "edge_node_2" {
   display_name = "${var.edge_node_2}"
+  edge_cluster_path = "data.nsxt_policy_edge_cluster.edge_cluster1.path"
 }
 
 # Uplink VLAN Transport Zone
@@ -85,7 +87,7 @@ resource "nsxt_policy_tier0_gateway_interface" "T0_edge1_right" {
   display_name           = "${var.t0_edge1_right_name}"
   description            = "Edge Node 1 Right"
   type                   = "EXTERNAL"
-  gateway_path           = data.nsxt_policy_tier0_gateway.tier0_gw.path
+  gateway_path           = nsxt_policy_tier0_gateway.tier0_gw.path
   segment_path           = nsxt_policy_vlan_segment.vlan_right_seg.path
   edge_node_path         = nsxt_policy_edge_node.edge_node_1.path
   subnets                = "${var.t0_edge1_right_subnets}"
