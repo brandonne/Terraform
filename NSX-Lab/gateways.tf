@@ -12,11 +12,11 @@ data "nsxt_policy_edge_cluster" "edge_cluster1" {
 }
 data "nsxt_policy_edge_node" "edge_node_1" {
   display_name = "${var.edge_node_1}"
-  edge_cluster_path = "data.nsxt_policy_edge_cluster.edge_cluster1.path"
+  edge_cluster_path = data.nsxt_policy_edge_cluster.edge_cluster1.path
 }
 data "nsxt_policy_edge_node" "edge_node_2" {
   display_name = "${var.edge_node_2}"
-  edge_cluster_path = "data.nsxt_policy_edge_cluster.edge_cluster1.path"
+  edge_cluster_path = data.nsxt_policy_edge_cluster.edge_cluster1.path
 }
 
 # Uplink VLAN Transport Zone
@@ -72,9 +72,9 @@ resource "nsxt_policy_tier0_gateway_interface" "T0_edge1_left" {
   display_name           = "${var.t0_edge1_left_name}"
   description            = "Edge Node 1 Left"
   type                   = "EXTERNAL"
-  gateway_path           = data.nsxt_policy_tier0_gateway.tier0_gw.path
+  gateway_path           = nsxt_policy_tier0_gateway.tier0_gw.path
   segment_path           = nsxt_policy_vlan_segment.vlan_left_seg.path
-  edge_node_path         = nsxt_policy_edge_node.edge_node_1.path
+  edge_node_path         = data.nsxt_policy_edge_node.edge_node_1.path
   subnets                = "${var.t0_edge1_left_subnets}"
   mtu                    = 1500
   tag {
@@ -89,7 +89,7 @@ resource "nsxt_policy_tier0_gateway_interface" "T0_edge1_right" {
   type                   = "EXTERNAL"
   gateway_path           = nsxt_policy_tier0_gateway.tier0_gw.path
   segment_path           = nsxt_policy_vlan_segment.vlan_right_seg.path
-  edge_node_path         = nsxt_policy_edge_node.edge_node_1.path
+  edge_node_path         = data.nsxt_policy_edge_node.edge_node_1.path
   subnets                = "${var.t0_edge1_right_subnets}"
   mtu                    = 1500
   tag {
@@ -101,9 +101,9 @@ resource "nsxt_policy_tier0_gateway_interface" "T0_edge2_left" {
   display_name           = "${var.t0_edge2_left_name}"
   description            = "Edge Node 2 Left"
   type                   = "EXTERNAL"
-  gateway_path           = data.nsxt_policy_tier0_gateway.tier0_gw.path
+  gateway_path           = nsxt_policy_tier0_gateway.tier0_gw.path
   segment_path           = nsxt_policy_vlan_segment.vlan_left_seg.path
-  edge_node_path         = nsxt_policy_edge_node.edge_node_2.path
+  edge_node_path         = data.nsxt_policy_edge_node.edge_node_2.path
   subnets                = "${var.t0_edge2_left_subnets}"
   mtu                    = 1500
   tag {
@@ -115,9 +115,9 @@ resource "nsxt_policy_tier0_gateway_interface" "T0_edge2_right" {
   display_name           = "${var.t0_edge2_right_name}"
   description            = "Edge Node 2 Right"
   type                   = "EXTERNAL"
-  gateway_path           = data.nsxt_policy_tier0_gateway.tier0_gw.path
+  gateway_path           = nsxt_policy_tier0_gateway.tier0_gw.path
   segment_path           = nsxt_policy_vlan_segment.vlan_right_seg.path
-  edge_node_path         = nsxt_policy_edge_node.edge_node_2.path
+  edge_node_path         = data.nsxt_policy_edge_node.edge_node_2.path
   subnets                = "${var.t0_edge2_right_subnets}"
   mtu                    = 1500
   tag {
@@ -191,7 +191,7 @@ resource "nsxt_policy_tier1_gateway" "tier1_gw" {
   display_name                = "${var.t1_gw_name}"
   failover_mode               = "PREEMPTIVE"
   edge_cluster_path            = "${data.nsxt_policy_edge_cluster.edge_cluster1.path}"
-  tier0_path                  = data.nsxt_policy_tier0_gateway.tier0_router.path
+  tier0_path                  = nsxt_policy_tier0_gateway.tier0_gw.path
   route_advertisement_types  = ["TIER1_STATIC_ROUTES","TIER1_CONNECTED","TIER1_NAT"]
     tag {
 	scope = "${var.nsx_tag_scope}"
