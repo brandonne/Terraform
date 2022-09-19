@@ -11,29 +11,29 @@ data "vsphere_datastore" "datastore" {
   datacenter_id = data.vsphere_datacenter.datacenter.id
 }
 
-#data "vsphere_compute_cluster" "cluster" {
-#  name          = ""
-#  datacenter_id = data.vsphere_datacenter.datacenter.id
-#}
-#
-#data "vsphere_resource_pool" "default" {
-#  name          = format("%s%s", data.vsphere_compute_cluster.cluster.name, "/Resources")
-#  datacenter_id = data.vsphere_datacenter.datacenter.id
-#}
-#
-#data "vsphere_host" "host" {
-#  name          = "esxi-11a.vcn.ninja.local"
-#  datacenter_id = data.vsphere_datacenter.datacenter.id
-#}
-#
-#data "vsphere_network" "network" {
-#  name          = "vDS-Production-MGMT"
-#  datacenter_id = data.vsphere_datacenter.datacenter.id
-#}
-#
-#data "vsphere_folder" "folder" {
-#  path = "/${data.vsphere_datacenter.datacenter.name}/vm/DRaas Connectors"
-#}
+data "vsphere_compute_cluster" "cluster" {
+  name          = "${var.infra["cluster"]}"
+  datacenter_id = data.vsphere_datacenter.datacenter.id
+}
+
+data "vsphere_resource_pool" "default" {
+  name          = format("%s%s", data.vsphere_compute_cluster.cluster.name, "/Resources")
+  datacenter_id = data.vsphere_datacenter.datacenter.id
+}
+
+data "vsphere_host" "host" {
+  name          = "${var.infra["host"]}"
+  datacenter_id = data.vsphere_datacenter.datacenter.id
+}
+
+data "vsphere_network" "network" {
+  name          = "${var.infra["network"]}"
+  datacenter_id = data.vsphere_datacenter.datacenter.id
+}
+
+data "vsphere_folder" "folder" {
+  path = "/${data.vsphere_datacenter.datacenter.name}/vm/${var.infra["folder"]}"
+}
 
 ## Local OVF/OVA Source
 data "vsphere_ovf_vm_template" "ovfLocal" {
