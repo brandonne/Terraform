@@ -34,3 +34,12 @@ variable "infra"  {
   }
 }
 
+# VM variables
+variable "VM" {
+  type = map
+  description = "VM Variables"
+  default = {
+    name = "Ubuntu-VM"
+
+  }
+}
