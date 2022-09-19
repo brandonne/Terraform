@@ -1,32 +1,25 @@
-# providers.tf
-terraform {
+#! providers.tf
+
+Terraform {
   required_providers {
-    vsphere = {
-      source  = "hashicorp/vsphere"
-      version = ">= 2.2.0"
+    nsxt = {
+      source = "vmware/nsxt"
     }
   }
 }
 
-provider "vsphere" {
-  user                 = var.vsphere_user
-  password             = var.vsphere_password
-  vsphere_server       = "vc-l-10a.vcn.ninja.local"
-  allow_unverified_ssl = true
-}
-provider "vsphere" {
-  alias                = "vCenter02"
-  user                 = var.vsphere_user
-  password             = var.vsphere_password
-  vsphere_server       = "vc-l-20a.vcn.ninja.local"
-  allow_unverified_ssl = true
+# Configure the NSX-T Provider
+provider "nsxt" {
+    host = "${var.nsx["hostname"]}"
+    username = "${var.nsx["user"]}"
+    password = "${var.nsx["password"]}"
+    allow_unverified_ssl = true
 }
 
+# Configure the VMware vSphere Provider
 provider "vsphere" {
-  alias                = "vCenter03"
-  user                 = var.vsphere_user
-  password             = var.vsphere_password
-  vsphere_server       = "vc-l-30a.vcn.ninja.local"
-  allow_unverified_ssl = true
+    user           = "${var.vsphere["user"]}"
+    password       = "${var.vsphere["password"]}"
+    vsphere_server = "${var.vsphere["hostname"]}"
+    allow_unverified_ssl = true
 }
-
