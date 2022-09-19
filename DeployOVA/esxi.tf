@@ -42,7 +42,7 @@ data "vsphere_ovf_vm_template" "ovaLocal" {
   resource_pool_id  = data.vsphere_resource_pool.default.id
   datastore_id      = data.vsphere_datastore.datastore.id
   host_system_id    = data.vsphere_host.host.id
-  local_ovf_path    = "bionic-server-cloudimg-amd64.ova"
+  local_ovf_path    = "${var.VM["ova"]}"
   ovf_network_map = {
       "Lab Network" : data.vsphere_network.network.id
   }
@@ -69,7 +69,9 @@ resource "vsphere_virtual_machine" "vm01" {
   }
   wait_for_guest_net_timeout = 0
   wait_for_guest_ip_timeout  = 0
-
+  cdrom {
+    client_device = true
+  }
   ovf_deploy {
       allow_unverified_ssl_cert = true
       local_ovf_path            = data.vsphere_ovf_vm_template.ovaLocal.local_ovf_path
