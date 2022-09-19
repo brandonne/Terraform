@@ -5,6 +5,7 @@ Terraform {
     nsxt = {
       source = "vmware/nsxt"
     }
+
   }
 }
 
