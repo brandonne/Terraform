@@ -1,56 +1,69 @@
-# esxi.tf
-# Not yet Functioning
+terraform {
+  required_providers {
+    vsphere = {
+      source  = "hashicorp/vsphere"
+      version = ">= 2.2.0"
+    }
+  }
+}
 
-# vSphere Infrastructure Details
+provider "vsphere" {
+  user           = "administrator@vsphere.local"
+  password       = "password"
+  vsphere_server = "galactica.lab.travellingtechie.com"
+  allow_unverified_ssl = true
+}
+
 data "vsphere_datacenter" "datacenter" {
-  name = "${var.infra["datacenter"]}"
+  name = "Homelab"
 }
 
 data "vsphere_datastore" "datastore" {
-  name          = "${var.infra["datastore"]}"
+  name          = "Lab NFS"
   datacenter_id = data.vsphere_datacenter.datacenter.id
 }
 
-#data "vsphere_compute_cluster" "cluster" {
-#  name          = ""
-#  datacenter_id = data.vsphere_datacenter.datacenter.id
-#}
-#
-#data "vsphere_resource_pool" "default" {
-#  name          = format("%s%s", data.vsphere_compute_cluster.cluster.name, "/Resources")
-#  datacenter_id = data.vsphere_datacenter.datacenter.id
-#}
-#
-#data "vsphere_host" "host" {
-#  name          = "esxi-11a.vcn.ninja.local"
-#  datacenter_id = data.vsphere_datacenter.datacenter.id
-#}
-#
-#data "vsphere_network" "network" {
-#  name          = "vDS-Production-MGMT"
-#  datacenter_id = data.vsphere_datacenter.datacenter.id
-#}
-#
-#data "vsphere_folder" "folder" {
-#  path = "/${data.vsphere_datacenter.datacenter.name}/vm/DRaas Connectors"
-#}
+data "vsphere_compute_cluster" "cluster" {
+  name          = "Physical"
+  datacenter_id = data.vsphere_datacenter.datacenter.id
+}
+
+data "vsphere_resource_pool" "default" {
+  name          = format("%s%s", data.vsphere_compute_cluster.cluster.name, "/Resources")
+  datacenter_id = data.vsphere_datacenter.datacenter.id
+}
+
+data "vsphere_host" "host" {
+  name          = "rama11.lab.travellingtechie.com"
+  datacenter_id = data.vsphere_datacenter.datacenter.id
+}
+
+data "vsphere_network" "network" {
+  name          = "Lab MGMT Local"
+  datacenter_id = data.vsphere_datacenter.datacenter.id
+}
+
+data "vsphere_folder" "folder" {
+  path = "/${data.vsphere_datacenter.datacenter.name}/vm/Connectors"
+}
 
 ## Local OVF/OVA Source
 data "vsphere_ovf_vm_template" "ovfLocal" {
-  name              = "DRaaS-Connector1-01"
+  name              = "foo"
   disk_provisioning = "thin"
   resource_pool_id  = data.vsphere_resource_pool.default.id
   datastore_id      = data.vsphere_datastore.datastore.id
   host_system_id    = data.vsphere_host.host.id
-  local_ovf_path    = "../vmware-cloud-connector.ova"
+  local_ovf_path    = "/Users/brandonneill/Projects/Terraform/nsx-unified-appliance-3.1.2.0.0.17884005-le.ova"
   ovf_network_map = {
-      "vDS-Production-MGMT" : data.vsphere_network.network.id
+      "VM Network" : data.vsphere_network.network.id
   }
 }
-## Deployment of DRaaS-Connector1-01
-resource "vsphere_virtual_machine" "DRaaS-Connector1-01" {
-  name                 = "DRaaS-Connector1-01"
-  folder               = data.vsphere_folder.folder.path
+
+## Deployment of VM from Local OVF
+resource "vsphere_virtual_machine" "vmFromLocalOvf" {
+  name                 = "Babylon5"
+  folder               = trimprefix(data.vsphere_folder.folder.path, "/${data.vsphere_datacenter.datacenter.name}/vm/Connectors")
   datacenter_id        = data.vsphere_datacenter.datacenter.id
   datastore_id         = data.vsphere_datastore.datastore.id
   host_system_id       = data.vsphere_host.host.id
