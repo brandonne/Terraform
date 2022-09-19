@@ -78,7 +78,19 @@ resource "vsphere_virtual_machine" "vm01" {
       disk_provisioning         = data.vsphere_ovf_vm_template.ovaLocal.disk_provisioning
       ovf_network_map           = data.vsphere_ovf_vm_template.ovaLocal.ovf_network_map
   }
+  vapp {
+    properties ={
+      hostname = var.VM.name
+      user-data = base64encode(file("${path.module}/cloudinit/kickstart.yaml"))
+    }
+  }
 
+  extra_config = {
+    "guestinfo.metadata"          = base64encode(file("${path.module}/cloudinit/metadata.yaml"))
+    "guestinfo.metadata.encoding" = "base64"
+    "guestinfo.userdata"          = base64encode(file("${path.module}/cloudinit/userdata.yaml"))
+    "guestinfo.userdata.encoding" = "base64"
+  }
   lifecycle {
       ignore_changes = [
       annotation,
