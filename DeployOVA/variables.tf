@@ -40,7 +40,7 @@ variable "VM" {
   description = "VM Variables"
   default = {
     name = "Ubuntu-VM"
-    ova = "kinetic-serverl-cloudimg-amd64.ova"
+    ova = "kinetic-server-cloudimg-amd64.ova"
 
   }
 }
