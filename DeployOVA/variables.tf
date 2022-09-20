@@ -16,7 +16,7 @@ variable "vsphere" {
   default     = {
     user     = "administrator@vsphere.local"
     password = "VMware1!"
-    hostname       = "192.168.110.22"
+    hostname       = "vcenter.lab.local"
   }
 }
 
@@ -39,7 +39,7 @@ variable "VM" {
   type = map
   description = "VM Variables"
   default = {
-    name = "Ubuntu-VM"
+    name = "Ubuntu-01"
     ova = "kinetic-server-cloudimg-amd64.ova"
 
   }
