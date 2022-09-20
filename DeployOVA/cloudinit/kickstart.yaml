@@ -1,8 +1,8 @@
 #cloud-config 
-chpasswd: #Change your local password here
-    list: |
-      local:MySuperPassw0rd!
-    expire: false
+#chpasswd: #Change your local password here
+#    list: |
+#      local:MySuperPassw0rd!
+#    expire: false
 users:
   - default #Define a default user
   - name: local

@@ -1,6 +1,13 @@
-#cloud-config 
+#cloud-config
+users:
+  - name: brandonne
+    ssh-authorized-keys:
+     - ssh-rsa AAAAC3NzaC1lZDI1NTE5AAAAIGifY67uIFApsy61FC8MrVlJvxvytegPYz06o6GYQ/+G
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: sudo
+    shell: /bin/bash
 packages:
-  - nfs-kernel-server
+  - jq
   - docker
   - docker.io
 runcmd:
