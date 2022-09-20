@@ -25,8 +25,8 @@ random_seed:
 package_upgrade: true
 packages:
   - python3-pip #Dependency package for cur
-runcmd:
-   - curl -sSL https://raw.githubusercontent.com/vmware/cloud-init-vmware-guestinfo/master/install.sh | sh - #Install cloud-init
+#runcmd:
+#   - curl -sSL https://raw.githubusercontent.com/vmware/cloud-init-vmware-guestinfo/master/install.sh | sh - #Install cloud-init
 power_state:
   timeout: 30
   mode: reboot
