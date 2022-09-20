@@ -78,11 +78,13 @@ resource "vsphere_virtual_machine" "vm01" {
       disk_provisioning         = data.vsphere_ovf_vm_template.ovaLocal.disk_provisioning
       ovf_network_map           = data.vsphere_ovf_vm_template.ovaLocal.ovf_network_map
   }
-  vapp {
-    properties ={
-      hostname = var.VM.name
-      user-data = base64encode(file("${path.module}/cloudinit/kickstart.yaml"))
-    }
+
+# I don't think this is needed
+# vapp {
+#    properties ={
+#      hostname = var.VM.name
+#      user-data = base64encode(file("${path.module}/cloudinit/kickstart.yaml"))
+#    }
   }
 
   extra_config = {
