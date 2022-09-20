@@ -80,12 +80,12 @@ resource "vsphere_virtual_machine" "vm01" {
   }
 
 # I don't think this is needed
-# vapp {
-#    properties ={
-#      hostname = var.VM.name
-#      user-data = base64encode(file("${path.module}/cloudinit/kickstart.yaml"))
-#    }
-#  }
+ vapp {
+    properties ={
+      hostname = var.VM.name
+      user-data = base64encode(file("${path.module}/cloudinit/kickstart.yaml"))
+    }
+  }
 
   extra_config = {
     "guestinfo.metadata"          = base64encode(file("${path.module}/cloudinit/metadata.yaml"))
